@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Alert } from 'react-native';
 
 import Header from './components/header';
 import ToDoItem from './components/toDoItem';
+import AddToDo from './components/addToDo';
+
 export default function App() {
   const [tasks, setTasks] = useState([
     { text: 'Learn Japanese', key: '1' },
@@ -15,12 +17,35 @@ export default function App() {
     setTasks((prevTasks) => {
       return prevTasks.filter(task => task.key !== key)
     })
-  }
+  };
+
+  const submitHandler = (text) => {
+    if (text.length > 3) {
+      setTasks((prevTasks) => {
+        return [
+          { text:text, key: Math.random().toString() },
+          ...prevTasks
+        ]
+      })
+    } else {
+      Alert.alert(
+        'Oops!',
+        'Todo must be over 3 characters long',
+        [
+          {
+            text: 'Understood',
+            onPress: () => console.log('alert closed')
+          }
+        ]
+      )
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Header/>
       <View style={styles.content}>
-        {/* to form */}
+        <AddToDo submitHandler={submitHandler}/>
         <View style={styles.list}>
           <FlatList
             data={tasks}
