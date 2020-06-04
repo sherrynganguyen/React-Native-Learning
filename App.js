@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, Alert } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import Header from './components/header';
 import ToDoItem from './components/toDoItem';
@@ -42,20 +42,23 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Header/>
-      <View style={styles.content}>
-        <AddToDo submitHandler={submitHandler}/>
-        <View style={styles.list}>
-          <FlatList
-            data={tasks}
-            renderItem={({ item }) => (
-              <ToDoItem item={item} pressHandler={pressHandler}/>
-            )}
-          />
+    // <FlexBox/>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <Header/>
+        <View style={styles.content}>
+          <AddToDo submitHandler={submitHandler}/>
+          <View style={styles.list}>
+            <FlatList
+              data={tasks}
+              renderItem={({ item }) => (
+                <ToDoItem item={item} pressHandler={pressHandler}/>
+              )}
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -66,8 +69,10 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 40,
+    flex: 1
   },
   list: {
+    flex: 1,
     marginTop: 20,
   }
 });
