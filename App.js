@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 
+import Header from './components/header';
 export default function App() {
   const [tasks, setTasks] = useState([
     { text: 'Learn Japanese', key: '1' },
@@ -11,6 +12,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* header */}
+      <Header/>
       <View style={styles.content}>
         {/* to form */}
         <View style={styles.list}>
